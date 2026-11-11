@@ -1,0 +1,50 @@
+@base = http://localhost:3000/api/auth
+@access = PASTE_ACCESS_TOKEN_HERE
+# REST Client має зберігати cookies між запитами.
+
+### Register
+POST {{base}}/register
+Content-Type: application/json
+X-CSRF-Protection: 1
+
+{"email":"student@example.com","password":"A long student passphrase"}
+
+### Login
+POST {{base}}/login
+Content-Type: application/json
+X-CSRF-Protection: 1
+
+{"email":"student@example.com","password":"A long student passphrase"}
+
+### Me: вставте accessToken з відповіді login
+GET {{base}}/me
+Authorization: Bearer {{access}}
+
+### Активні сесії поточного користувача (без tokenHash)
+GET {{base}}/sessions
+Authorization: Bearer {{access}}
+
+### Негативний сценарій: невідоме поле body, очікуємо 400
+POST {{base}}/login
+Content-Type: application/json
+X-CSRF-Protection: 1
+
+{"email":"student@example.com","password":"A long student passphrase","role":"admin"}
+
+### Негативний сценарій: неіснуючий email, очікуємо 401 Invalid email or password
+POST {{base}}/login
+Content-Type: application/json
+X-CSRF-Protection: 1
+
+{"email":"nobody@example.com","password":"A long student passphrase"}
+
+### Refresh: cookie додається клієнтом
+POST {{base}}/refresh
+X-CSRF-Protection: 1
+
+### Logout
+POST {{base}}/logout
+X-CSRF-Protection: 1
+
+### Негативний сценарій: без Bearer, очікуємо 401
+GET {{base}}/me

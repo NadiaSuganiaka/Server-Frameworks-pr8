@@ -1,0 +1,45 @@
+{
+  "name": "pr8-nest-auth-starter",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start:dev": "npm run build && node --watch dist/main.js",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "test": "tsc -p tsconfig.test.json && node --test .test-dist/test/crypto.test.js",
+    "test:e2e": "tsc -p tsconfig.test.json && node --test --test-concurrency=1 .test-dist/test/auth.e2e.js",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"test/**/*.ts\""
+  },
+  "dependencies": {
+    "@nestjs/common": "11.1.6",
+    "@nestjs/core": "11.1.6",
+    "@nestjs/jwt": "11.0.0",
+    "@nestjs/platform-express": "11.1.6",
+    "@nestjs/throttler": "6.4.0",
+    "@prisma/client": "6.19.0",
+    "argon2": "0.44.0",
+    "class-transformer": "0.5.1",
+    "class-validator": "0.14.2",
+    "cookie-parser": "1.4.7",
+    "dotenv": "16.6.1",
+    "helmet": "8.1.0",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "1.4.9",
+    "@types/express": "5.0.3",
+    "@types/node": "22.18.0",
+    "prettier": "3.6.2",
+    "prisma": "6.19.0",
+    "tsx": "4.20.5",
+    "typescript": "5.9.2"
+  }
+}
